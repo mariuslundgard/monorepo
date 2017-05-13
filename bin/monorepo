@@ -1,0 +1,26 @@
+#!/usr/bin/env node
+
+'use strict'
+
+const argv = require('yargs').argv
+const chalk = require('chalk')
+const monorepo = require('../src')
+
+const args = argv._
+const flags = Object.keys(argv)
+  .filter((key) => key !== '_')
+  .filter((key) => key.indexOf('$') !== 0)
+  .reduce((f, key) => {
+    f[key] = argv[key]
+    return f
+  }, {})
+const opts = {cwd: process.cwd()}
+
+function handleDone (err) {
+  if (err) {
+    console.error(`${chalk.red('error')} ${err.message}`)
+    process.exit(1)
+  }
+}
+
+monorepo(args, flags, opts, handleDone)

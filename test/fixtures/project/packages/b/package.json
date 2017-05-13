@@ -1,0 +1,10 @@
+{
+  "name": "b",
+  "version": "1.0.0",
+  "scripts": {
+    "fail": "exit 1"
+  },
+  "dependencies": {
+    "a": "file:../a"
+  }
+}
