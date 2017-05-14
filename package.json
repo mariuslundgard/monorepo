@@ -1,7 +1,10 @@
 {
   "name": "monorepo",
+  "description": "A CLI utility program for Node.js monorepo projects.",
   "version": "1.0.0",
   "main": "src/index.js",
+  "repository": "git@github.com:mariuslundgard/monorepo.git",
+  "author": "Marius Lundgård <studio@mariuslundgard.com>",
   "license": "MIT",
   "bin": {
     "monorepo": "bin/monorepo"
