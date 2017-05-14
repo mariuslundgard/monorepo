@@ -42,3 +42,20 @@ To run the `test` script in each of the packages, run:
 ```sh
 monorepo run test
 ```
+
+## API
+
+### `monorepo(args, flags, opts, cb)`
+
+`monorepo` may be used as a Node.js module:
+
+```js
+const monorepo = require('monorepo')
+
+monorepo(['run', 'test'], {quiet: true}, {cwd: path.resolve(__dirname, 'path/to/root')}, (err) => {
+  if (err) {
+    console.error(err.message)
+    process.exit(err.code || 1)
+  }
+})
+```
