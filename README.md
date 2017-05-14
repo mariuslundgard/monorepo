@@ -16,8 +16,8 @@ yarn add monorepo --dev
 
 ## Motivation
 
-`lerna` is pretty good, but seems bloated and messes up the output to stdout.
-Also, 'lerna' uses `npm` which has [speed issues](https://github.com/npm/npm/issues/15361).
+[`lerna`](https://github.com/lerna/lerna) is pretty good, but seems bloated and messes up the output to stdout.
+Also, `lerna` uses `npm` which has [speed issues](https://github.com/npm/npm/issues/15361).
  
 ## Usage
 
