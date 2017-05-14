@@ -17,7 +17,7 @@ yarn add monorepo --dev
 ## Motivation
 
 `lerna` is pretty good, but seems bloated and messes up the output to stdout.
-Also, it uses `npm` which is slow.
+Also, 'lerna' uses `npm` which has [speed issues](https://github.com/npm/npm/issues/15361).
  
 ## Usage
 
@@ -31,7 +31,7 @@ Add a `monorepo.json` to the root of the project. Example:
 }
 ```
 
-Now run:
+To install all the sub-package dependencies, run:
 
 ```sh
 monorepo install
