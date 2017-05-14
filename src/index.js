@@ -3,6 +3,7 @@
 const commands = require('./commands')
 
 function printUsage () {
+  // eslint-disable-next-line no-console
   console.log(`
   monorepo [command] [options]
 

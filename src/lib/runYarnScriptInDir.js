@@ -2,7 +2,6 @@
 
 const Promise = require('bluebird')
 
-const chalk = require('chalk')
 const findConfig = require('find-config')
 const spawn = require('../lib/spawn')
 

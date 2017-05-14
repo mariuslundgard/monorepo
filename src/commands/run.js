@@ -1,6 +1,5 @@
 'use strict'
 
-const chalk = require('chalk')
 const getContext = require('../lib/getContext')
 const glob = require('../lib/glob')
 const path = require('path')
