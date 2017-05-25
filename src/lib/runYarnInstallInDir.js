@@ -3,7 +3,7 @@
 const Promise = require('bluebird')
 
 const findConfig = require('find-config')
-const spawn = require('../lib/spawn')
+const spawn = require('./spawn')
 
 module.exports = function runYarnInstallInDir (dirPath, opts) {
   const pkgPath = findConfig('package.json', {cwd: dirPath})
