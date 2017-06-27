@@ -4,7 +4,7 @@ const getContext = require('../lib/getContext')
 const glob = require('../lib/glob')
 const path = require('path')
 const Promise = require('bluebird')
-const runYarnScriptInDir = require('../lib/runYarnScriptInDir')
+const runNpmScriptInDir = require('../lib/runNpmScriptInDir')
 
 module.exports = function run (args, flags, opts, cb) {
   const script = args.shift()
@@ -23,7 +23,7 @@ module.exports = function run (args, flags, opts, cb) {
     })).then((filesArr) => {
       const files = filesArr.reduce((arr, f) => arr.concat(f), [])
       return Promise.all(files.map((dirPath) => {
-        return runYarnScriptInDir(script, dirPath, {quiet: flags.quiet})
+        return runNpmScriptInDir(script, dirPath, {quiet: flags.quiet})
       }))
     }).then(() => {
       cb(null)

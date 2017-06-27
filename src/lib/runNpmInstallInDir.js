@@ -12,5 +12,5 @@ module.exports = function runYarnInstallInDir (dirPath, opts) {
 
   const pkg = findConfig.require('package.json', {cwd: dirPath})
 
-  return spawn(pkg.name, 'yarn', ['install'], {cwd: dirPath, quiet: opts.quiet})
+  return spawn(pkg.name, 'npm', ['install'], {cwd: dirPath, quiet: opts.quiet})
 }

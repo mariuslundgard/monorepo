@@ -9,13 +9,11 @@ module.exports = function spawn (scope, script, args, opts) {
     const p = _spawn(script, args, {cwd: opts.cwd})
 
     p.stdout.on('data', (data) => {
-      if (!opts.quiet)
-        process.stdout.write(`${chalk.blue(scope)} ${data.toString()}`)
+      if (!opts.quiet) process.stdout.write(`${chalk.blue(scope)} ${data.toString()}`)
     })
 
     p.stderr.on('data', (data) => {
-      if (!opts.quiet)
-        process.stderr.write(`${chalk.blue(scope)} ${data.toString()}`)
+      if (!opts.quiet) process.stderr.write(`${chalk.blue(scope)} ${data.toString()}`)
     })
 
     p.on('exit', (code) => {

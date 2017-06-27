@@ -10,7 +10,7 @@
     "monorepo": "bin/monorepo"
   },
   "scripts": {
-    "lint": "eslint bin src test",
+    "lint": "standard bin src test",
     "test": "mocha test/**/*-test.js"
   },
   "pre-commit": [
@@ -25,9 +25,9 @@
     "yargs": "^8.0.1"
   },
   "devDependencies": {
-    "eslint": "^3.19.0",
     "mocha": "^3.3.0",
     "pre-commit": "^1.2.2",
-    "rimraf": "^2.6.1"
+    "rimraf": "^2.6.1",
+    "standard": "^10.0.2"
   }
 }
