@@ -37,6 +37,12 @@ To install all the sub-package dependencies, run:
 monorepo install
 ```
 
+To publish all the sub-package dependencies, run:
+
+```sh
+monorepo publish
+```
+
 To run the `test` script in each of the packages, run:
 
 ```sh

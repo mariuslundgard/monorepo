@@ -1,20 +1,19 @@
 'use strict'
 
+const findConfig = require('find-config')
 const getContext = require('../lib/getContext')
 const glob = require('../lib/glob')
 const path = require('path')
 const Promise = require('bluebird')
-const runYarnScriptInDir = require('../lib/runYarnScriptInDir')
+const runYarnCommandInDir = require('../lib/runYarnCommandInDir')
 
-module.exports = function run (args, flags, opts, cb) {
-  const script = args.shift()
+module.exports = function publish (args, flags, opts, cb) {
+  const pkgPath = findConfig('package.json', {cwd: opts.cwd})
 
-  if (!script) {
-    cb(new Error('Missing script'))
-    return
-  }
+  if (!pkgPath) return cb(new Error('Could not find package.json'))
 
   try {
+    const pkg = require(pkgPath)
     const ctx = getContext(opts.cwd)
 
     Promise.all(
@@ -29,10 +28,17 @@ module.exports = function run (args, flags, opts, cb) {
     )
       .then(filesArr => {
         const files = filesArr.reduce((arr, f) => arr.concat(f), [])
+        const yarnFlags = {
+          access: flags.access || 'restricted',
+          'new-version': pkg.version
+        }
+        const yarnOpts = {
+          quiet: flags.quiet
+        }
 
         return Promise.all(
           files.map(dirPath => {
-            return runYarnScriptInDir(script, dirPath, {quiet: flags.quiet})
+            return runYarnCommandInDir(dirPath, 'publish', yarnFlags, yarnOpts)
           })
         )
       })

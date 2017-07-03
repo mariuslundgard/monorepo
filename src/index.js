@@ -7,9 +7,13 @@ function printUsage () {
   console.log(`
   monorepo [command] [options]
 
+  Options:
+  --access <public|restricted>
+
   Commands:
 
   - install
+  - publish
   - run
 `)
 }
