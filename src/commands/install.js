@@ -4,7 +4,7 @@ const getContext = require('../lib/getContext')
 const glob = require('../lib/glob')
 const path = require('path')
 const Promise = require('bluebird')
-const runYarnInstallInDir = require('../lib/runYarnInstallInDir')
+const runYarnCommandInDir = require('../lib/runYarnCommandInDir')
 
 module.exports = function install (args, flags, opts, cb) {
   try {
@@ -23,7 +23,7 @@ module.exports = function install (args, flags, opts, cb) {
         const files = filesArr.reduce((arr, f) => arr.concat(f), [])
         return Promise.all(
           files.map(dirPath => {
-            return runYarnInstallInDir(dirPath, {quiet: flags.quiet})
+            return runYarnCommandInDir(dirPath, 'install', {quiet: flags.quiet})
           })
         )
       })
