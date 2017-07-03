@@ -21,7 +21,7 @@ module.exports = function monorepo (args, flags, opts, cb) {
     printUsage()
     cb(null)
   } else if (commands[command]) {
-    commands[command](args, flags, opts, (err) => {
+    commands[command](args, flags, opts, err => {
       if (err) {
         cb(err)
       } else {

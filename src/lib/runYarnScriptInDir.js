@@ -14,5 +14,8 @@ module.exports = function runYarnScriptInDir (script, dirPath, opts) {
 
   if (!pkg.scripts || !pkg.scripts[script]) return Promise.resolve() // not a script
 
-  return spawn(pkg.name, 'yarn', ['run', script], {cwd: dirPath, quiet: opts.quiet})
+  return spawn(pkg.name, 'yarn', ['run', script], {
+    cwd: dirPath,
+    quiet: opts.quiet
+  })
 }

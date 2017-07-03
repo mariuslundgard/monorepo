@@ -7,13 +7,15 @@ const chalk = require('chalk')
 const monorepo = require('../src')
 
 const args = argv._
+
 const flags = Object.keys(argv)
-  .filter((key) => key !== '_')
-  .filter((key) => key.indexOf('$') !== 0)
+  .filter(key => key !== '_')
+  .filter(key => key.indexOf('$') !== 0)
   .reduce((f, key) => {
     f[key] = argv[key]
     return f
   }, {})
+
 const opts = {cwd: process.cwd()}
 
 function handleDone (err) {

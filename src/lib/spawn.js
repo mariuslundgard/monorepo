@@ -8,17 +8,15 @@ module.exports = function spawn (scope, script, args, opts) {
   return new Promise((resolve, reject) => {
     const p = _spawn(script, args, {cwd: opts.cwd})
 
-    p.stdout.on('data', (data) => {
-      if (!opts.quiet)
-        process.stdout.write(`${chalk.blue(scope)} ${data.toString()}`)
+    p.stdout.on('data', data => {
+      if (!opts.quiet) { process.stdout.write(`${chalk.blue(scope)} ${data.toString()}`) }
     })
 
-    p.stderr.on('data', (data) => {
-      if (!opts.quiet)
-        process.stderr.write(`${chalk.blue(scope)} ${data.toString()}`)
+    p.stderr.on('data', data => {
+      if (!opts.quiet) { process.stderr.write(`${chalk.blue(scope)} ${data.toString()}`) }
     })
 
-    p.on('exit', (code) => {
+    p.on('exit', code => {
       if (code === 0) {
         resolve()
       } else {
