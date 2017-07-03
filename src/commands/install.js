@@ -16,14 +16,18 @@ module.exports = function install (args, flags, opts, cb) {
           ctx.rootPath,
           relativePackagesPattern
         )
+
         return glob(packagesPattern)
       })
     )
       .then(filesArr => {
         const files = filesArr.reduce((arr, f) => arr.concat(f), [])
+        const yarnFlags = {}
+        const yarnOpts = {quiet: flags.quiet}
+
         return Promise.all(
           files.map(dirPath => {
-            return runYarnCommandInDir(dirPath, 'install', {quiet: flags.quiet})
+            return runYarnCommandInDir(dirPath, 'install', yarnFlags, yarnOpts)
           })
         )
       })
