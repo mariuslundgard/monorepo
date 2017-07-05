@@ -9,14 +9,16 @@
   "bin": {
     "monorepo": "bin/monorepo"
   },
-  "scripts": {
-    "lint": "eslint bin src test",
-    "test": "mocha test/**/*-test.js"
-  },
   "pre-commit": [
     "lint",
     "test"
   ],
+  "scripts": {
+    "commit": "git-cz",
+    "lint": "eslint bin src test",
+    "release": "semantic-release --access public",
+    "test": "mocha test/**/*-test.js"
+  },
   "dependencies": {
     "bluebird": "^3.5.0",
     "chalk": "^2.0.1",
@@ -25,6 +27,9 @@
     "yargs": "^8.0.2"
   },
   "devDependencies": {
+    "@transclusion/semantic-release": "^0.2.5",
+    "commitizen": "^2.9.6",
+    "cz-conventional-changelog": "^2.0.0",
     "eslint": "^4.1.1",
     "eslint-config-standard": "^10.2.1",
     "eslint-plugin-import": "^2.6.1",
@@ -34,5 +39,10 @@
     "mocha": "^3.4.2",
     "pre-commit": "^1.2.2",
     "rimraf": "^2.6.1"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   }
 }
