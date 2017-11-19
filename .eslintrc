@@ -1,3 +1,4 @@
 {
+  "env": {"jest": true},
   "extends": "standard"
 }

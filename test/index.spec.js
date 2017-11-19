@@ -1,14 +1,12 @@
 'use strict'
 
-const assert = require('assert')
-const {before, describe, it} = require('mocha')
 const fs = require('fs')
-const monorepo = require('../src')
 const path = require('path')
 const rimraf = require('rimraf')
+const monorepo = require('../src')
 
 describe('monorepo', () => {
-  before(done => {
+  beforeAll(done => {
     rimraf(
       path.resolve(__dirname, 'fixtures/project/**/*/node_modules'),
       () => {
@@ -17,7 +15,7 @@ describe('monorepo', () => {
           const opts = {cwd: path.resolve(__dirname, 'fixtures/project')}
 
           monorepo(['install'], flags, opts, err => {
-            assert.equal(err, null)
+            expect(err).toBeNull()
             done()
           })
         })
@@ -29,7 +27,8 @@ describe('monorepo', () => {
     const stats = fs.lstatSync(
       path.resolve(__dirname, 'fixtures/project/packages/b/node_modules/a')
     )
-    assert(stats.isDirectory())
+
+    expect(stats.isDirectory()).toBeTruthy()
   })
 
   it('should run scripts in sub-packages', done => {
@@ -37,7 +36,7 @@ describe('monorepo', () => {
     const opts = {cwd: path.resolve(__dirname, 'fixtures/project')}
 
     monorepo(['run', 'test'], flags, opts, err => {
-      assert.equal(err, null)
+      expect(err).toBeNull()
       done()
     })
   })
@@ -47,9 +46,9 @@ describe('monorepo', () => {
     const opts = {cwd: path.resolve(__dirname, 'fixtures/project')}
 
     monorepo(['run', 'fail'], flags, opts, err => {
-      assert.equal(err.message, 'Script failure')
-      assert.equal(err.scope, 'b')
-      assert.equal(err.code, 1)
+      expect(err.message).toEqual('Script failure')
+      expect(err.scope).toEqual('b')
+      expect(err.code).toEqual(1)
       done()
     })
   })
