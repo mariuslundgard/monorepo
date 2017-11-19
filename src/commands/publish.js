@@ -1,11 +1,11 @@
 'use strict'
 
+const adapters = require('../lib/adapters')
 const findConfig = require('find-config')
 const getContext = require('../lib/getContext')
 const glob = require('../lib/glob')
 const path = require('path')
 const Promise = require('bluebird')
-const runYarnCommandInDir = require('../lib/runYarnCommandInDir')
 
 module.exports = function publish (args, flags, opts, cb) {
   const pkgPath = findConfig('package.json', {cwd: opts.cwd})
@@ -15,6 +15,7 @@ module.exports = function publish (args, flags, opts, cb) {
   try {
     const pkg = require(pkgPath)
     const ctx = getContext(opts.cwd)
+    const adapter = adapters.resolve(flags.adapter || ctx.config.adapter || 'npm')
 
     Promise.all(
       ctx.config.packages.map(relativePackagesPattern => {
@@ -35,7 +36,7 @@ module.exports = function publish (args, flags, opts, cb) {
 
         return Promise.all(
           files.map(dirPath => {
-            return runYarnCommandInDir(dirPath, 'publish', yarnFlags, yarnOpts)
+            return adapter.cmd(dirPath, 'publish', yarnFlags, yarnOpts)
           })
         )
       })

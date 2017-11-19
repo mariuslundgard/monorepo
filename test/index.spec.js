@@ -21,9 +21,11 @@ describe('monorepo', () => {
   })
 
   it('should install sub-package’s dependencies', () => {
-    const stats = fs.lstatSync(path.resolve(__dirname, 'fixtures/project/packages/b/node_modules/a'))
+    const stats = fs.lstatSync(path.resolve(__dirname, 'fixtures/project/packages/b/node_modules'))
+    const files = fs.readdirSync(path.resolve(__dirname, 'fixtures/project/packages/b/node_modules'))
 
     expect(stats.isDirectory()).toBeTruthy()
+    expect(files).toContain('a')
   })
 
   it('should run scripts in sub-packages', done => {

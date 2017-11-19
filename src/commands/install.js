@@ -1,14 +1,15 @@
 'use strict'
 
+const adapters = require('../lib/adapters')
 const getContext = require('../lib/getContext')
 const glob = require('../lib/glob')
 const path = require('path')
 const Promise = require('bluebird')
-const runYarnCommandInDir = require('../lib/runYarnCommandInDir')
 
 module.exports = function install (args, flags, opts, cb) {
   try {
     const ctx = getContext(opts.cwd)
+    const adapter = adapters.resolve(flags.adapter || ctx.config.adapter || 'npm')
 
     Promise.all(
       ctx.config.packages.map(relativePackagesPattern => {
@@ -19,12 +20,12 @@ module.exports = function install (args, flags, opts, cb) {
     )
       .then(filesArr => {
         const files = filesArr.reduce((arr, f) => arr.concat(f), [])
-        const yarnFlags = {}
-        const yarnOpts = {quiet: flags.quiet}
+        const adapterFlags = {}
+        const adapterOpts = {quiet: flags.quiet}
 
         return Promise.all(
           files.map(dirPath => {
-            return runYarnCommandInDir(dirPath, 'install', yarnFlags, yarnOpts)
+            return adapter.cmd(dirPath, 'install', adapterFlags, adapterOpts)
           })
         )
       })

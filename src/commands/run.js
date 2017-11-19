@@ -1,10 +1,10 @@
 'use strict'
 
+const adapters = require('../lib/adapters')
 const getContext = require('../lib/getContext')
 const glob = require('../lib/glob')
 const path = require('path')
 const Promise = require('bluebird')
-const runYarnScriptInDir = require('../lib/runYarnScriptInDir')
 
 module.exports = function run (args, flags, opts, cb) {
   const script = args.shift()
@@ -16,6 +16,7 @@ module.exports = function run (args, flags, opts, cb) {
 
   try {
     const ctx = getContext(opts.cwd)
+    const adapter = adapters.resolve(flags.adapter || ctx.config.adapter || 'npm')
 
     Promise.all(
       ctx.config.packages.map(relativePackagesPattern => {
@@ -29,7 +30,7 @@ module.exports = function run (args, flags, opts, cb) {
 
         return Promise.all(
           files.map(dirPath => {
-            return runYarnScriptInDir(script, dirPath, {quiet: flags.quiet})
+            return adapter.run(script, dirPath, {quiet: flags.quiet})
           })
         )
       })

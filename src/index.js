@@ -9,6 +9,8 @@ function printUsage () {
 
   Options:
   --access <public|restricted>
+  --adapter <npm|yarn>
+  --quiet
 
   Commands:
 

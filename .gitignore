@@ -2,3 +2,4 @@
 /node_modules
 /npm-debug*
 /yarn-error*
+/yarn.lock

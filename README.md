@@ -11,23 +11,21 @@ yarn add monorepo --dev
 
 ## Features
 
-* Based on `yarn`.
-* Parallel. Runs scripts in packages in parallel.
+* **Adapters**. Use either `npm` (default) or `yarn`.
+* **Parallel.** Runs package scripts and commands in parallel.
 
 ## Motivation
 
 [`lerna`](https://github.com/lerna/lerna) is pretty good, but seems bloated and messes up the output to stdout.
-Also, `lerna` uses `npm` which has [speed issues](https://github.com/npm/npm/issues/15361).
- 
+
 ## Usage
 
 Add a `monorepo.json` to the root of the project. Example:
 
 ```json
 {
-  "packages": [
-    "packages/*"
-  ]
+  "adapter": "npm",
+  "packages": ["packages/*"]
 }
 ```
 
@@ -58,7 +56,7 @@ monorepo run test
 ```js
 const monorepo = require('monorepo')
 
-monorepo(['run', 'test'], {quiet: true}, {cwd: path.resolve(__dirname, 'path/to/root')}, (err) => {
+monorepo(['run', 'test'], {adapter: 'yarn', quiet: true}, {cwd: path.resolve(__dirname, 'path/to/root')}, err => {
   if (err) {
     console.error(err.message)
     process.exit(err.code || 1)
