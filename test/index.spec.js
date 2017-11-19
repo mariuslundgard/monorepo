@@ -7,26 +7,21 @@ const monorepo = require('../src')
 
 describe('monorepo', () => {
   beforeAll(done => {
-    rimraf(
-      path.resolve(__dirname, 'fixtures/project/**/*/node_modules'),
-      () => {
-        rimraf(path.resolve(__dirname, 'fixtures/project/*/yarn.lock'), () => {
-          const flags = {quiet: true}
-          const opts = {cwd: path.resolve(__dirname, 'fixtures/project')}
+    rimraf(path.resolve(__dirname, 'fixtures/project/**/*/node_modules'), () => {
+      rimraf(path.resolve(__dirname, 'fixtures/project/*/yarn.lock'), () => {
+        const flags = {quiet: true}
+        const opts = {cwd: path.resolve(__dirname, 'fixtures/project')}
 
-          monorepo(['install'], flags, opts, err => {
-            expect(err).toBeNull()
-            done()
-          })
+        monorepo(['install'], flags, opts, err => {
+          expect(err).toBeNull()
+          done()
         })
-      }
-    )
+      })
+    })
   })
 
   it('should install sub-package’s dependencies', () => {
-    const stats = fs.lstatSync(
-      path.resolve(__dirname, 'fixtures/project/packages/b/node_modules/a')
-    )
+    const stats = fs.lstatSync(path.resolve(__dirname, 'fixtures/project/packages/b/node_modules/a'))
 
     expect(stats.isDirectory()).toBeTruthy()
   })

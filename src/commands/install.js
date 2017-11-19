@@ -12,10 +12,7 @@ module.exports = function install (args, flags, opts, cb) {
 
     Promise.all(
       ctx.config.packages.map(relativePackagesPattern => {
-        const packagesPattern = path.resolve(
-          ctx.rootPath,
-          relativePackagesPattern
-        )
+        const packagesPattern = path.resolve(ctx.rootPath, relativePackagesPattern)
 
         return glob(packagesPattern)
       })
