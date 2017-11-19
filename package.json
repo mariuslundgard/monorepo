@@ -20,7 +20,7 @@
     "test": "mocha test/**/*-test.js"
   },
   "dependencies": {
-    "bluebird": "^3.5.0",
+    "bluebird": "^3.5.1",
     "chalk": "^2.0.1",
     "find-config": "^1.0.0",
     "glob": "^7.1.2",
