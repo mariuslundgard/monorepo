@@ -1,10 +1,10 @@
 'use strict'
 
+const Promise = require('bluebird')
+const path = require('path')
 const adapters = require('../lib/adapters')
 const getContext = require('../lib/getContext')
 const glob = require('../lib/glob')
-const path = require('path')
-const Promise = require('bluebird')
 
 module.exports = function install (args, flags, opts, cb) {
   try {

@@ -1,7 +1,6 @@
 'use strict'
 
 const Promise = require('bluebird')
-
 const findConfig = require('find-config')
 const spawn = require('../spawn')
 

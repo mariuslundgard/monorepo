@@ -1,11 +1,11 @@
 'use strict'
 
-const adapters = require('../lib/adapters')
+const Promise = require('bluebird')
 const findConfig = require('find-config')
+const path = require('path')
+const adapters = require('../lib/adapters')
 const getContext = require('../lib/getContext')
 const glob = require('../lib/glob')
-const path = require('path')
-const Promise = require('bluebird')
 
 module.exports = function publish (args, flags, opts, cb) {
   const pkgPath = findConfig('package.json', {cwd: opts.cwd})

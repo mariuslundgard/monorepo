@@ -1,12 +1,12 @@
 'use strict'
 
-const chalk = require('chalk')
 const Promise = require('bluebird')
-const _spawn = require('child_process').spawn
+const chalk = require('chalk')
+const nodeSpawn = require('child_process').spawn
 
 module.exports = function spawn (scope, script, args, opts) {
   return new Promise((resolve, reject) => {
-    const p = _spawn(script, args, {cwd: opts.cwd})
+    const p = nodeSpawn(script, args, {cwd: opts.cwd})
 
     p.stdout.on('data', data => {
       if (!opts.quiet) {
