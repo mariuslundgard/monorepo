@@ -21,7 +21,7 @@ const opts = {cwd: process.cwd()}
 function handleDone (err) {
   if (err) {
     console.error(`${chalk.red('error')} ${err.message}`)
-    process.exit(1)
+    process.exit(err.code || 1)
   }
 }
 
