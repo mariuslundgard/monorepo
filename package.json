@@ -39,7 +39,7 @@
     "eslint-plugin-standard": "^3.0.1",
     "jest": "^22.1.4",
     "pre-commit": "^1.2.2",
-    "prettier-eslint-cli": "^4.4.0",
+    "prettier-eslint-cli": "^4.7.0",
     "rimraf": "^2.6.1"
   },
   "config": {
