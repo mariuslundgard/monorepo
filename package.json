@@ -25,7 +25,7 @@
     "chalk": "^2.0.1",
     "find-config": "^1.0.0",
     "glob": "^7.1.2",
-    "yargs": "^10.0.3"
+    "yargs": "^10.1.2"
   },
   "devDependencies": {
     "@transclusion/semantic-release": "^0.2.5",
