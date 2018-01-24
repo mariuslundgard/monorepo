@@ -3,7 +3,7 @@
 A CLI utility program for Node.js monorepo projects.
 
 ```sh
-yarn add monorepo --dev
+npm install monorepo --save-dev
 ```
 
 [![build status](https://img.shields.io/travis/mariuslundgard/monorepo/master.svg?style=flat-square)](https://travis-ci.org/mariuslundgard/monorepo)
