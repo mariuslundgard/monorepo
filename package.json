@@ -48,6 +48,7 @@
     }
   },
   "jest": {
+    "testRegex": "(\\.|/)spec\\.js$",
     "verbose": true
   }
 }
