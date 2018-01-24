@@ -42,3 +42,18 @@ exports.run = function run (script, dirPath, opts) {
     quiet: opts.quiet
   })
 }
+
+exports.test = function test (dirPath, opts) {
+  const pkgPath = findConfig('package.json', {cwd: dirPath})
+
+  if (!pkgPath) return Promise.resolve() // not a package
+
+  const pkg = findConfig.require('package.json', {cwd: dirPath})
+
+  if (!pkg.scripts || !pkg.scripts.test) return Promise.resolve() // not a script
+
+  return spawn(pkg.name, 'yarn', ['test'], {
+    cwd: dirPath,
+    quiet: opts.quiet
+  })
+}

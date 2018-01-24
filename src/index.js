@@ -17,6 +17,7 @@ function printUsage () {
   - install
   - publish
   - run
+  - test
 `)
 }
 
