@@ -56,10 +56,15 @@ monorepo run test
 ```js
 const monorepo = require('monorepo')
 
-monorepo(['run', 'test'], {adapter: 'yarn', quiet: true}, {cwd: path.resolve(__dirname, 'path/to/root')}, err => {
-  if (err) {
-    console.error(err.message)
-    process.exit(err.code || 1)
+monorepo(
+  ['test'],
+  {adapter: 'yarn', quiet: true},
+  {cwd: path.resolve(__dirname, 'path/to/root')},
+  err => {
+    if (err) {
+      console.error(err.message)
+      process.exit(err.code || 1)
+    }
   }
-})
+)
 ```
