@@ -6,6 +6,10 @@ const spawn = require('../spawn')
 
 const SUPPORTED_COMMANDS = ['install', 'publish']
 
+exports.is = function is (name) {
+  return name === 'yarn'
+}
+
 exports.cmd = function cmd (dirPath, command, flags, opts) {
   if (SUPPORTED_COMMANDS.indexOf(command) === -1) {
     return Promise.reject(new Error(`Unsupported yarn command: ${command}`))

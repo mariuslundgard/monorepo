@@ -30,7 +30,7 @@ module.exports = function spawn (scope, script, args, opts) {
         }
         err.code = code
         err.scope = scope
-        reject(err)
+        opts.resolveErrors ? resolve() : reject(err)
       }
     })
   })
