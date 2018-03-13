@@ -26,10 +26,9 @@ exports.cmd = function cmd (dirPath, command, flags, opts) {
     return arr
   }, [])
 
-  return spawn(pkg.name, 'npm', [command].concat(params), {
-    cwd: dirPath,
-    ...opts
-  })
+  const args = opts;
+  args.cwd = dirPath
+  return spawn(pkg.name, 'npm', [command].concat(params), args)
 }
 
 exports.run = function run (script, dirPath, opts) {
@@ -41,10 +40,9 @@ exports.run = function run (script, dirPath, opts) {
 
   if (!pkg.scripts || !pkg.scripts[script]) return Promise.resolve() // not a script
 
-  return spawn(pkg.name, 'npm', ['run', script], {
-    cwd: dirPath,
-    ...opts
-  })
+  const args = opts;
+  args.cwd = dirPath
+  return spawn(pkg.name, 'npm', ['run', script], args);
 }
 
 exports.test = function test (dirPath, opts) {

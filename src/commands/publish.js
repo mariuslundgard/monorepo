@@ -27,10 +27,10 @@ module.exports = function publish (args, flags, opts, cb) {
       .then(filesArr => {
         const files = filesArr.reduce((arr, f) => arr.concat(f), [])
         const adapterFlags = {
-          access: flags.access || 'restricted',
-          ...adapter.is('yarn') && {
-            'new-version': pkg.version
-          }
+          access: flags.access || 'restricted'
+        }
+        if(adapter.is('yarn')) {
+          adapterFlags['new-version'] =  pkg.version;
         }
         const adapterOpts = {
           quiet: flags.quiet,
