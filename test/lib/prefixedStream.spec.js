@@ -21,7 +21,7 @@ function createMockWriteStream () {
 
 describe('lib/prefixedStream', () => {
   it('should prefix each line in a stream', done => {
-    const s = prefixedStream.create({prefix: 'foo > '})
+    const s = prefixedStream.create({ prefix: 'foo > ' })
     const mockSubStdout = createMockReadStream()
     const mockStdout = createMockWriteStream()
 

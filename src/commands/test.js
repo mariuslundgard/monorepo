@@ -28,7 +28,7 @@ module.exports = function run (args, flags, opts, cb) {
 
         return Promise.all(
           files.map(dirPath => {
-            return adapter.test(dirPath, {quiet: flags.quiet})
+            return adapter.test(dirPath, { quiet: flags.quiet })
           })
         )
       })

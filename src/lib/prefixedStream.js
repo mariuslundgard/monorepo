@@ -3,8 +3,8 @@
 const Transform = require('stream').Transform
 
 function create (opts) {
-  const {prefix} = opts
-  const stream = Transform({objectMode: true})
+  const { prefix } = opts
+  const stream = Transform({ objectMode: true })
 
   stream._transform = function (chunk, encoding, done) {
     const data = chunk.toString()
@@ -33,4 +33,4 @@ function create (opts) {
   return stream
 }
 
-module.exports = {create}
+module.exports = { create }

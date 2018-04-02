@@ -16,11 +16,16 @@ module.exports = function run (args, flags, opts, cb) {
 
   try {
     const ctx = getContext(opts.cwd)
-    const adapter = adapters.resolve(flags.adapter || ctx.config.adapter || 'npm')
+    const adapter = adapters.resolve(
+      flags.adapter || ctx.config.adapter || 'npm'
+    )
 
     Promise.all(
       ctx.config.packages.map(relativePackagesPattern => {
-        const packagesPattern = path.resolve(ctx.rootPath, relativePackagesPattern)
+        const packagesPattern = path.resolve(
+          ctx.rootPath,
+          relativePackagesPattern
+        )
 
         return glob(packagesPattern)
       })
@@ -30,7 +35,7 @@ module.exports = function run (args, flags, opts, cb) {
 
         return Promise.all(
           files.map(dirPath => {
-            return adapter.run(script, dirPath, {quiet: flags.quiet})
+            return adapter.run(script, dirPath, { quiet: flags.quiet })
           })
         )
       })

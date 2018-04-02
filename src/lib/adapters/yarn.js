@@ -11,11 +11,11 @@ exports.cmd = function cmd (dirPath, command, flags, opts) {
     return Promise.reject(new Error(`Unsupported yarn command: ${command}`))
   }
 
-  const pkgPath = findConfig('package.json', {cwd: dirPath})
+  const pkgPath = findConfig('package.json', { cwd: dirPath })
 
   if (!pkgPath) return Promise.resolve() // not a package
 
-  const pkg = findConfig.require('package.json', {cwd: dirPath})
+  const pkg = findConfig.require('package.json', { cwd: dirPath })
 
   const params = Object.keys(flags).reduce((arr, key) => {
     arr.push(`--${key}`, flags[key])
@@ -29,11 +29,11 @@ exports.cmd = function cmd (dirPath, command, flags, opts) {
 }
 
 exports.run = function run (script, dirPath, opts) {
-  const pkgPath = findConfig('package.json', {cwd: dirPath})
+  const pkgPath = findConfig('package.json', { cwd: dirPath })
 
   if (!pkgPath) return Promise.resolve() // not a package
 
-  const pkg = findConfig.require('package.json', {cwd: dirPath})
+  const pkg = findConfig.require('package.json', { cwd: dirPath })
 
   if (!pkg.scripts || !pkg.scripts[script]) return Promise.resolve() // not a script
 
@@ -44,11 +44,11 @@ exports.run = function run (script, dirPath, opts) {
 }
 
 exports.test = function test (dirPath, opts) {
-  const pkgPath = findConfig('package.json', {cwd: dirPath})
+  const pkgPath = findConfig('package.json', { cwd: dirPath })
 
   if (!pkgPath) return Promise.resolve() // not a package
 
-  const pkg = findConfig.require('package.json', {cwd: dirPath})
+  const pkg = findConfig.require('package.json', { cwd: dirPath })
 
   if (!pkg.scripts || !pkg.scripts.test) return Promise.resolve() // not a script
 

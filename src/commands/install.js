@@ -9,11 +9,16 @@ const glob = require('../lib/glob')
 module.exports = function install (args, flags, opts, cb) {
   try {
     const ctx = getContext(opts.cwd)
-    const adapter = adapters.resolve(flags.adapter || ctx.config.adapter || 'npm')
+    const adapter = adapters.resolve(
+      flags.adapter || ctx.config.adapter || 'npm'
+    )
 
     Promise.all(
       ctx.config.packages.map(relativePackagesPattern => {
-        const packagesPattern = path.resolve(ctx.rootPath, relativePackagesPattern)
+        const packagesPattern = path.resolve(
+          ctx.rootPath,
+          relativePackagesPattern
+        )
 
         return glob(packagesPattern)
       })
@@ -21,7 +26,7 @@ module.exports = function install (args, flags, opts, cb) {
       .then(filesArr => {
         const files = filesArr.reduce((arr, f) => arr.concat(f), [])
         const adapterFlags = {}
-        const adapterOpts = {quiet: flags.quiet}
+        const adapterOpts = { quiet: flags.quiet }
 
         return Promise.all(
           files.map(dirPath => {

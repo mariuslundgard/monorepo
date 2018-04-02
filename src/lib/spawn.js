@@ -7,11 +7,11 @@ const prefixedStream = require('./prefixedStream')
 
 module.exports = function spawn (scope, script, args, opts) {
   return new Promise((resolve, reject) => {
-    const p = nodeSpawn(script, args, {cwd: opts.cwd})
+    const p = nodeSpawn(script, args, { cwd: opts.cwd })
 
     if (!opts.quiet) {
-      const stderr = prefixedStream.create({prefix: chalk.red(scope) + ' '})
-      const stdout = prefixedStream.create({prefix: chalk.green(scope) + ' '})
+      const stderr = prefixedStream.create({ prefix: chalk.red(scope) + ' ' })
+      const stdout = prefixedStream.create({ prefix: chalk.green(scope) + ' ' })
 
       p.stderr.pipe(stderr).pipe(process.stderr)
       p.stdout.pipe(stdout).pipe(process.stdout)
