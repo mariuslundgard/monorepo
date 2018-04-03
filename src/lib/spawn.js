@@ -1,6 +1,5 @@
 'use strict'
 
-const Promise = require('bluebird')
 const chalk = require('chalk')
 const nodeSpawn = require('child_process').spawn
 const prefixedStream = require('./prefixedStream')
@@ -20,16 +19,20 @@ module.exports = function spawn (scope, script, args, opts) {
     p.on('exit', code => {
       if (code === 0) {
         if (!opts.quiet) {
-          console.log(chalk.green(scope) + ' OK')
+          process.stdout.write(chalk.green(scope) + ' OK\n')
         }
+
         resolve()
       } else {
         const err = new Error(`Script failure`)
+
         if (!opts.quiet) {
-          console.error(chalk.red(scope) + ' exit code #' + code)
+          process.stderr.write(chalk.red(scope) + ' exit code #' + code + '\n')
         }
+
         err.code = code
         err.scope = scope
+
         reject(err)
       }
     })

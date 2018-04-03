@@ -2,67 +2,47 @@
 
 const fs = require('fs')
 const path = require('path')
-const rimraf = require('rimraf')
+const rimraf = require('bluebird').promisify(require('rimraf'))
 const monorepo = require('../src')
 
 describe('monorepo', () => {
-  beforeAll(done => {
-    rimraf(
-      path.resolve(__dirname, 'fixtures/project/**/*/node_modules'),
-      () => {
-        rimraf(
-          path.resolve(
-            __dirname,
-            'fixtures/project/packages/*/package-lock.json'
-          ),
-          () => {
-            rimraf(
-              path.resolve(__dirname, 'fixtures/project/packages/*/yarn.lock'),
-              () => {
-                const flags = { quiet: false }
-                const opts = {
-                  cwd: path.resolve(__dirname, 'fixtures/project')
-                }
+  const cwd = path.resolve(__dirname, 'fixtures/project')
 
-                monorepo(['install'], flags, opts, err => {
-                  expect(err).toBeNull()
-                  done()
-                })
-              }
-            )
-          }
-        )
-      }
-    )
-  })
+  async function clean () {
+    await rimraf(path.resolve(cwd, 'packages/*/node_modules'))
+    await rimraf(path.resolve(cwd, 'packages/*/package-lock.json'))
+    await rimraf(path.resolve(cwd, 'packages/*/yarn.lock'))
+  }
 
-  it('should install sub-package’s dependencies', () => {
-    const stats = fs.lstatSync(
-      path.resolve(__dirname, 'fixtures/project/packages/b/node_modules')
-    )
-    const files = fs.readdirSync(
-      path.resolve(__dirname, 'fixtures/project/packages/b/node_modules')
-    )
+  beforeAll(clean)
+  afterAll(clean)
 
+  it('should install sub-package’s dependencies', async () => {
+    await monorepo.install({ cwd, quiet: true })
+
+    const stats = fs.lstatSync(path.resolve(cwd, 'packages/b/node_modules'))
     expect(stats.isDirectory()).toBeTruthy()
+
+    const files = fs.readdirSync(path.resolve(cwd, 'packages/b/node_modules'))
     expect(files).toContain('a')
   })
 
-  it('should run scripts in sub-packages', done => {
-    const flags = { quiet: true }
-    const opts = { cwd: path.resolve(__dirname, 'fixtures/project') }
+  it('should run scripts in sub-packages', () => {
+    const opts = {
+      cwd: path.resolve(__dirname, 'fixtures/project'),
+      quiet: true
+    }
 
-    monorepo(['run', 'test'], flags, opts, err => {
-      expect(err).toBeNull()
-      done()
-    })
+    return monorepo.test(opts)
   })
 
   it('should fail to run scripts in sub-packages', done => {
-    const flags = { quiet: true }
-    const opts = { cwd: path.resolve(__dirname, 'fixtures/project') }
+    const opts = {
+      cwd: path.resolve(__dirname, 'fixtures/project'),
+      quiet: true
+    }
 
-    monorepo(['run', 'fail'], flags, opts, err => {
+    monorepo.run('fail', opts).catch(err => {
       expect(err.message).toEqual('Script failure')
       expect(err.scope).toEqual('b')
       expect(err.code).toEqual(1)

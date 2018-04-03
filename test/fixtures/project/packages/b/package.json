@@ -5,6 +5,6 @@
     "fail": "exit 1"
   },
   "dependencies": {
-    "a": "file:../a"
+    "a": "1.0.0"
   }
 }

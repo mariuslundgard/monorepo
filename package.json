@@ -7,7 +7,7 @@
   "author": "Marius Lundgård <studio@mariuslundgard.com>",
   "license": "MIT",
   "bin": {
-    "monorepo": "bin/monorepo"
+    "monorepo": "bin/monorepo.js"
   },
   "pre-commit": [
     "lint",
@@ -15,7 +15,7 @@
   ],
   "scripts": {
     "commit": "git-cz",
-    "format": "prettier-eslint --write \"{src,test}/**/*.js\"",
+    "format": "prettier-eslint --write \"{bin,src,test}/**/*.js\"",
     "lint": "eslint bin src test",
     "release": "semantic-release --access public",
     "test": "jest"
