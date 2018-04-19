@@ -7,7 +7,7 @@ const prefixedStream = require('./prefixedStream')
 
 module.exports = function spawn (scope, script, args, opts) {
   return new Promise((resolve, reject) => {
-    const p = nodeSpawn(script, args, { cwd: opts.cwd })
+    const p = nodeSpawn(/^win/.test(process.platform) ? script + '.cmd' : script, args, { cwd: opts.cwd })
 
     if (!opts.quiet) {
       const stderr = prefixedStream.create({ prefix: chalk.red(scope) + ' ' })
